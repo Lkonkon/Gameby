@@ -8,24 +8,23 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { styles } from "./css/style";
-import { loginUsuario } from "./services/api";
+import { styles } from "../css/style";
+import { cadastrarUsuario } from "../services/api";
 
-export default function Index() {
+export default function Cadastro() {
   const router = useRouter();
-  const [email, setEmail] = useState("teste3@gmail.com");
-  const [senha, setSenha] = useState("123");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
 
-  const handleLogin = async () => {
+  const handleCadastro = async () => {
     setLoading(true);
-    setError("");
     try {
-      await loginUsuario({ email, senha, nome: "" });
-      router.push("/components/home");
+      await cadastrarUsuario({ nome, email, senha });
+      Alert.alert("Sucesso", "Usuário cadastrado com sucesso!");
+      router.replace("/");
     } catch (err: any) {
-      setError(err.message);
       Alert.alert("Erro", err.message);
     } finally {
       setLoading(false);
@@ -34,7 +33,14 @@ export default function Index() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tela de login</Text>
+      <Text style={styles.title}>Cadastro de Usuário</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Nome"
+        placeholderTextColor="#F3F3F3"
+        value={nome}
+        onChangeText={setNome}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -46,7 +52,7 @@ export default function Index() {
       />
       <TextInput
         style={styles.input}
-        placeholder="Password"
+        placeholder="Senha"
         placeholderTextColor="#F3F3F3"
         value={senha}
         onChangeText={setSenha}
@@ -55,16 +61,10 @@ export default function Index() {
       {loading ? (
         <ActivityIndicator size="small" color="#000" />
       ) : (
-        <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+        <TouchableOpacity style={styles.button} onPress={handleCadastro}>
+          <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
       )}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("/components/cadastro")}
-      >
-        <Text style={styles.buttonText}>Cadastre-se</Text>
-      </TouchableOpacity>
     </View>
   );
 }
