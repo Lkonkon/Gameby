@@ -61,7 +61,7 @@ export default function Index() {
       )}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/components/cadastro")}
+        onPress={() => router.push("../components/cadastroUsuario")}
       >
         <Text style={styles.buttonText}>Cadastre-se</Text>
       </TouchableOpacity>
