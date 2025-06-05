@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { styles } from "../css/style";
 import { useCRUD } from "../services/api";
 
@@ -52,6 +53,7 @@ const Jogo = () => {
         <Text style={{ color: "red" }}>Erro ao carregar jogos</Text>
       ) : (
         <FlatList
+          style={{ width: "80%" }}
           data={JogoData}
           renderItem={({ item }) => (
             <View style={styles.containerLista}>
@@ -65,13 +67,29 @@ const Jogo = () => {
                 }
               >
                 <View style={styles.buttonCardHeader}>
-                  <Text style={styles.footerText}>
-                    {item.nome} - {"R$ " + item.valor}
-                  </Text>
-                  <Text style={styles.footerText}>
-                    {item.genero} - {item.consoles}
-                  </Text>
+                  <View style={styles.buttonCardHeaderText}>
+                    <Text style={styles.headerText}>
+                      {item.nome}
+                    </Text>
+                    <Text style={styles.headerText}>
+                      {"R$ " + item.valor}
+                    </Text>
+                  </View>
+                  <View style={styles.buttonCardFooterText}>
+                    <Text style={styles.footerText}>
+                      {item.genero}
+                    </Text>
+                    <Text style={styles.footerText}>
+                      {item.consoles}
+                    </Text>
+                  </View>
                 </View>
+                <TouchableOpacity
+                  style={styles.deleteIcon}
+                  onPress={() => item.id && handleDelete(item.id)}
+                >
+                  <Icon name="delete" size={24} color="#E50000" />
+                </TouchableOpacity>
               </TouchableOpacity>
             </View>
           )}

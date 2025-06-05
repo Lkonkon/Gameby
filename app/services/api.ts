@@ -1,12 +1,12 @@
-import { AxiosRequestConfig } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 
-import axios from "axios";
+
 export const api = axios.create({
-  baseURL: "http://10.0.2.2:3000",
+  baseURL: "http://[::1]:3000",
 });
 
-const baseURL = "http://10.0.2.2:3000";
+const baseURL = "http://[::1]:3000";
 export interface UserData {
   nome: string;
   email: string;
