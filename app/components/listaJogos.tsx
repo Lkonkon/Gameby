@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { styles } from "../css/style";
 import { useCRUD } from "../services/api";
 
@@ -68,20 +68,12 @@ const Jogo = () => {
               >
                 <View style={styles.buttonCardHeader}>
                   <View style={styles.buttonCardHeaderText}>
-                    <Text style={styles.headerText}>
-                      {item.nome}
-                    </Text>
-                    <Text style={styles.headerText}>
-                      {"R$ " + item.valor}
-                    </Text>
+                    <Text style={styles.headerText}>{item.nome}</Text>
+                    <Text style={styles.headerText}>{"R$ " + item.valor}</Text>
                   </View>
                   <View style={styles.buttonCardFooterText}>
-                    <Text style={styles.footerText}>
-                      {item.genero}
-                    </Text>
-                    <Text style={styles.footerText}>
-                      {item.consoles}
-                    </Text>
+                    <Text style={styles.footerText}>{item.genero}</Text>
+                    <Text style={styles.footerText}>{item.consoles}</Text>
                   </View>
                 </View>
                 <TouchableOpacity
