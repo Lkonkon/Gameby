@@ -1,11 +1,21 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosRequestConfig } from "axios";
 import { useState } from "react";
 
 export const api = axios.create({
-  baseURL: "http://10.0.2.2:3000",
+  baseURL: "https://back-react-production.up.railway.app",
 });
 
-const baseURL = "http://10.0.2.2:3000";
+const baseURL = "https://back-react-production.up.railway.app";
+
+api.interceptors.request.use(async (config) => {
+  const token = await AsyncStorage.getItem("userToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
 export interface UserData {
   nome: string;
   email: string;
@@ -13,14 +23,47 @@ export interface UserData {
 }
 
 export async function cadastrarUsuario(data: UserData) {
-  const response = await axios.post(`${baseURL}/usuarios`, data);
-  return response.data;
+  try {
+    const response = await axios.post(`${baseURL}/usuarios`, data);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 500) {
+      throw new Error("Email já em utilização");
+    }
+    throw error;
+  }
 }
 
 export async function loginUsuario(data: UserData) {
-  const response = await axios.post(`${baseURL}/auth/login`, data);
-  console.log(response.data);
-  return response.data;
+  try {
+    const response = await axios.post(`${baseURL}/auth/login`, data);
+    const { token } = response.data;
+    await AsyncStorage.setItem("userToken", token);
+    return response.data;
+  } catch (error: any) {
+    if (error.response?.status === 401) {
+      throw new Error("Usuário inexistente ou senha incorreta");
+    }
+    throw error;
+  }
+}
+
+export async function logout() {
+  try {
+    const token = await AsyncStorage.getItem("userToken");
+    if (token) {
+      await axios.post(
+        `${baseURL}/auth/logout`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+    }
+    await AsyncStorage.removeItem("userToken");
+  } catch (error) {
+    console.error("Erro ao fazer logout:", error);
+  }
 }
 
 export function useCRUD<T>(baseUrl: string) {

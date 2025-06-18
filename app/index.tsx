@@ -13,8 +13,8 @@ import { loginUsuario } from "./services/api";
 
 export default function Index() {
   const router = useRouter();
-  const [email, setEmail] = useState("teste3@gmail.com");
-  const [senha, setSenha] = useState("123");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
