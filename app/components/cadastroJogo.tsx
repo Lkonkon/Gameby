@@ -26,13 +26,10 @@ const Jogo = () => {
   const [avaliacao, setAvaliacao] = useState("");
 
   const formatarMoeda = (valor: string) => {
-    // Remove todos os caracteres não numéricos
     const apenasNumeros = valor.replace(/\D/g, "");
 
-    // Converte para número e divide por 100 para considerar os centavos
     const valorNumerico = Number(apenasNumeros) / 100;
 
-    // Formata o número para o padrão brasileiro
     return valorNumerico.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -42,10 +39,8 @@ const Jogo = () => {
   };
 
   const formatarData = (texto: string) => {
-    // Remove todos os caracteres não numéricos
     const apenasNumeros = texto.replace(/\D/g, "");
 
-    // Aplica a máscara de data
     if (apenasNumeros.length <= 2) {
       return apenasNumeros;
     } else if (apenasNumeros.length <= 4) {
@@ -71,10 +66,8 @@ const Jogo = () => {
     if (mes < 1 || mes > 12) return false;
     if (ano < 1900 || ano > 2100) return false;
 
-    // Verifica meses com 30 dias
     if ([4, 6, 9, 11].includes(mes) && dia > 30) return false;
 
-    // Verifica fevereiro
     if (mes === 2) {
       const isBissexto = (ano % 4 === 0 && ano % 100 !== 0) || ano % 400 === 0;
       if (isBissexto && dia > 29) return false;
@@ -101,20 +94,16 @@ const Jogo = () => {
   };
 
   const handleAvaliacaoChange = (texto: string) => {
-    // Remove caracteres não numéricos
     const apenasNumeros = texto.replace(/\D/g, "");
 
-    // Se o texto estiver vazio, permite apagar
     if (texto === "") {
       setAvaliacao("");
       return;
     }
 
-    // Limita a 2 dígitos
     if (apenasNumeros.length <= 2) {
       const numero = parseInt(apenasNumeros);
 
-      // Verifica se o número está entre 1 e 10
       if (numero <= 10) {
         setAvaliacao(apenasNumeros);
       }
@@ -190,7 +179,6 @@ const Jogo = () => {
         return;
       }
 
-      // Converte a data do formato DD/MM/AAAA para AAAA-MM-DD
       const [dia, mes, ano] = lancamento.split("/");
       const dataLancamento = new Date(`${ano}-${mes}-${dia}`);
 

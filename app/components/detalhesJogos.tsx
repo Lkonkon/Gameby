@@ -20,9 +20,7 @@ export default function DetalhesJogos() {
   );
 
   useEffect(() => {
-    // Formata o valor inicial
     if (valor) {
-      // Converte o valor para número e formata
       const valorNumerico = parseFloat(valor);
       const valorFormatado = valorNumerico.toLocaleString("pt-BR", {
         style: "currency",
@@ -33,7 +31,6 @@ export default function DetalhesJogos() {
       setValor(valorFormatado);
     }
 
-    // Formata a data inicial
     if (lancamento) {
       const data = new Date(lancamento);
       const dia = String(data.getDate()).padStart(2, "0");
