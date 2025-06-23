@@ -1,5 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { styles } from "../css/style";
 import { useCRUD } from "../services/api";
 
@@ -207,71 +218,86 @@ const Jogo = () => {
     }
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Cadastro de Jogos</Text>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.container}>
+            <Text style={styles.title}>Cadastro de Jogos</Text>
 
-      <TextInput
-        value={nome}
-        onChangeText={setNome}
-        placeholder="Nome"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-      />
+            <TextInput
+              value={nome}
+              onChangeText={setNome}
+              placeholder="Nome"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+            />
 
-      <TextInput
-        value={empresa}
-        onChangeText={setEmpresa}
-        placeholder="Empresa"
-        keyboardType="email-address"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-      />
+            <TextInput
+              value={empresa}
+              onChangeText={setEmpresa}
+              placeholder="Empresa"
+              keyboardType="email-address"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+            />
 
-      <TextInput
-        value={valor}
-        onChangeText={handleValorChange}
-        placeholder="Valor"
-        keyboardType="numeric"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        value={lancamento}
-        onChangeText={handleLancamentoChange}
-        placeholder="Data de Lançamento (DD/MM/AAAA)"
-        keyboardType="numeric"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-        maxLength={10}
-      />
-      <TextInput
-        value={genero}
-        onChangeText={setGenero}
-        placeholder="Genero"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        value={consoles}
-        onChangeText={setConsoles}
-        placeholder="Consoles"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        value={avaliacao}
-        onChangeText={handleAvaliacaoChange}
-        placeholder="Avaliação (1 a 10)"
-        keyboardType="numeric"
-        style={styles.input}
-        placeholderTextColor="#F3F3F3"
-        maxLength={2}
-      />
+            <TextInput
+              value={valor}
+              onChangeText={handleValorChange}
+              placeholder="Valor"
+              keyboardType="numeric"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              value={lancamento}
+              onChangeText={handleLancamentoChange}
+              placeholder="Data de Lançamento (DD/MM/AAAA)"
+              keyboardType="numeric"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+              maxLength={10}
+            />
+            <TextInput
+              value={genero}
+              onChangeText={setGenero}
+              placeholder="Genero"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              value={consoles}
+              onChangeText={setConsoles}
+              placeholder="Consoles"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              value={avaliacao}
+              onChangeText={handleAvaliacaoChange}
+              placeholder="Avaliação (1 a 10)"
+              keyboardType="numeric"
+              style={styles.input}
+              placeholderTextColor="#F3F3F3"
+              maxLength={2}
+            />
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Cadastrar</Text>
-      </TouchableOpacity>
-    </View>
+            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Cadastrar</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

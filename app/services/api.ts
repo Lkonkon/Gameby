@@ -30,7 +30,17 @@ export async function cadastrarUsuario(data: UserData) {
     if (error.response?.status === 500) {
       throw new Error("Email já em utilização");
     }
-    throw error;
+
+    if (error.response?.status === 400) {
+      const validationErrors = error.response.data?.message;
+      if (Array.isArray(validationErrors)) {
+        throw new Error(validationErrors.join(", "));
+      } else if (typeof validationErrors === "string") {
+        throw new Error(validationErrors);
+      }
+    }
+
+    throw new Error("Erro ao cadastrar usuário");
   }
 }
 

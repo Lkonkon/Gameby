@@ -1,6 +1,17 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Alert, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 import { styles } from "../css/style";
 import { useCRUD } from "../services/api";
 
@@ -207,65 +218,80 @@ export default function DetalhesJogos() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Detalhes do Jogo</Text>
-      <TextInput
-        style={styles.input}
-        value={nome}
-        onChangeText={setNome}
-        placeholder="Nome"
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        style={styles.input}
-        value={empresa}
-        onChangeText={setEmpresa}
-        placeholder="Empresa"
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        style={styles.input}
-        value={valor}
-        onChangeText={handleValorChange}
-        placeholder="Valor"
-        placeholderTextColor="#F3F3F3"
-        keyboardType="numeric"
-      />
-      <TextInput
-        style={styles.input}
-        value={lancamento}
-        onChangeText={handleLancamentoChange}
-        placeholder="Data de Lançamento (DD/MM/AAAA)"
-        placeholderTextColor="#F3F3F3"
-        keyboardType="numeric"
-        maxLength={10}
-      />
-      <TextInput
-        style={styles.input}
-        value={genero}
-        onChangeText={setGenero}
-        placeholder="Gênero"
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        style={styles.input}
-        value={consoles}
-        onChangeText={setConsoles}
-        placeholder="Consoles"
-        placeholderTextColor="#F3F3F3"
-      />
-      <TextInput
-        style={styles.input}
-        value={avaliacao}
-        onChangeText={handleAvaliacaoChange}
-        placeholder="Avaliação (1 a 10)"
-        placeholderTextColor="#F3F3F3"
-        keyboardType="numeric"
-        maxLength={2}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleSalvar}>
-        <Text style={styles.buttonText}>Salvar</Text>
-      </TouchableOpacity>
-    </View>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          style={{ flex: 1 }}
+          contentContainerStyle={{ flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.container}>
+            <Text style={styles.title}>Detalhes do Jogo</Text>
+            <TextInput
+              style={styles.input}
+              value={nome}
+              onChangeText={setNome}
+              placeholder="Nome"
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              style={styles.input}
+              value={empresa}
+              onChangeText={setEmpresa}
+              placeholder="Empresa"
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              style={styles.input}
+              value={valor}
+              onChangeText={handleValorChange}
+              placeholder="Valor"
+              placeholderTextColor="#F3F3F3"
+              keyboardType="numeric"
+            />
+            <TextInput
+              style={styles.input}
+              value={lancamento}
+              onChangeText={handleLancamentoChange}
+              placeholder="Data de Lançamento (DD/MM/AAAA)"
+              placeholderTextColor="#F3F3F3"
+              keyboardType="numeric"
+              maxLength={10}
+            />
+            <TextInput
+              style={styles.input}
+              value={genero}
+              onChangeText={setGenero}
+              placeholder="Gênero"
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              style={styles.input}
+              value={consoles}
+              onChangeText={setConsoles}
+              placeholder="Consoles"
+              placeholderTextColor="#F3F3F3"
+            />
+            <TextInput
+              style={styles.input}
+              value={avaliacao}
+              onChangeText={handleAvaliacaoChange}
+              placeholder="Avaliação (1 a 10)"
+              placeholderTextColor="#F3F3F3"
+              keyboardType="numeric"
+              maxLength={2}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleSalvar}>
+              <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
