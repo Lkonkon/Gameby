@@ -65,6 +65,10 @@ export const styles = StyleSheet.create({
     tintColor: "#F3F3F3",
     marginRight: 10,
   },
+  iconHome: {
+    alignSelf: "center",
+    marginRight: 10,
+  },
   containerLista: {
     flex: 1,
     alignItems: "center",
