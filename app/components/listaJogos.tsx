@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -68,7 +68,7 @@ const Jogo = () => {
               >
                 <View style={styles.buttonCardHeader}>
                   <View style={styles.buttonCardHeaderText}>
-                    <Text style={styles.headerText}>{item.nome}</Text>
+                    <Text style={styles.headerText} numberOfLines={1} ellipsizeMode="tail">{item.nome}</Text>
                     <Text style={styles.headerText}>{"R$ " + item.valor}</Text>
                   </View>
                   <View style={styles.buttonCardFooterText}>

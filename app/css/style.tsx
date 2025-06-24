@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginBottom: 20,
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 0,
   },
   containerScroll: {
     padding: 20,
@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
     padding: 0,
     borderRadius: 20,
     marginTop: 10,
-    width: "100%",
+    width: "94%",
     height: 200,
     marginBottom: 10,
     flexDirection: "row",
